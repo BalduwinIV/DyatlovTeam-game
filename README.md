@@ -2,7 +2,7 @@
 
 Dyatlov - is a real-life based puzzle-platformer, side-scroller, adventure game.
 
-reed more on **[WIKI](https://gitlab.fel.cvut.cz/B181_B4B39HRY/sample_project/wikis)**
+reed more on **[WIKI](https://gitlab.fel.cvut.cz/B231_B4B39HRY/team07/-/wikis)**
 
 
 ## Team members
