@@ -1,6 +1,19 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+/*
+ * Players manager singleton.
+ * 
+ * Get access: PlayerManager.instance.<method>
+ * 
+ * Get variables values by calling getter functions.
+ * Implement setter functions only if needed.
+ * Use hashes for animator parameters.
+ * Get access to components through this manager.
+ * For physics related updates use FixedUpdate.
+ * For animations related updates use LateUpdate.
+ */
+
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
