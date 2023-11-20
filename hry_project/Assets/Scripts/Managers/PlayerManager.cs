@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.PlayerLoop;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -18,8 +14,11 @@ public class PlayerManager : MonoBehaviour
 
     // Variables
     private Vector3 movementVector;
-    private Vector2 rawMovementInput;
     private bool lockTransform;
+
+    // Input variables
+    private Vector2 rawMovementInput;
+    private bool jumpButtonState;
 
     void Awake()
     {
@@ -41,6 +40,9 @@ public class PlayerManager : MonoBehaviour
         InputManager.instance.controls.PlayerControls.Movement.started += MovementCallbackFunction;
         InputManager.instance.controls.PlayerControls.Movement.performed += MovementCallbackFunction;
         InputManager.instance.controls.PlayerControls.Movement.canceled += MovementCallbackFunction;
+
+        InputManager.instance.controls.PlayerControls.Jump.started += JumpButtonCallbackFunction;
+        InputManager.instance.controls.PlayerControls.Jump.canceled += JumpButtonCallbackFunction;
     }
 
     void FixedUpdate() {
@@ -50,20 +52,9 @@ public class PlayerManager : MonoBehaviour
         }
     }
 
-    public CharacterController getCharacterController()
-    {
-        return characterController;
-    }
-
-    public Animator getAnimator()
-    {
-        return animator;
-    }
-
-    public bool movementIsLocked()
-    {
-        return lockTransform;
-    }
+// ---------
+// Setters
+// ---------
 
     public void lockMovement()
     {
@@ -73,10 +64,6 @@ public class PlayerManager : MonoBehaviour
     public void unlockMovement()
     {
         lockTransform = false;
-    }
-
-    public Vector3 getMovementVector() {
-        return movementVector;
     }
 
     public void setNormalizedMovementVectorX(float value)
@@ -109,6 +96,29 @@ public class PlayerManager : MonoBehaviour
         movementVector.z = value;
     }
 
+// ---------
+// Getters
+// ---------
+
+    public CharacterController getCharacterController()
+    {
+        return characterController;
+    }
+
+    public Animator getAnimator()
+    {
+        return animator;
+    }
+
+    public bool movementIsLocked()
+    {
+        return lockTransform;
+    }
+
+    public Vector3 getMovementVector() {
+        return movementVector;
+    }
+
     public Vector2 getRawMovementInput() 
     {
         return rawMovementInput;
@@ -124,7 +134,20 @@ public class PlayerManager : MonoBehaviour
         return rawMovementInput.y;
     }
 
+    public bool jumpButtonIsPressed()
+    {
+        return jumpButtonState;
+    }
+
+// --------------------
+// Callback functions
+// --------------------
+
     private void MovementCallbackFunction(InputAction.CallbackContext context) {
         rawMovementInput = context.ReadValue<Vector2>();
+    }
+
+    private void JumpButtonCallbackFunction(InputAction.CallbackContext context) {
+        jumpButtonState = context.ReadValueAsButton();
     }
 }
