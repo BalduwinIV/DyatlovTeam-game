@@ -32,6 +32,7 @@ public class PlayerManager : MonoBehaviour
     // Input variables
     private Vector2 rawMovementInput;
     private bool jumpButtonState;
+    private bool actionButtonState;
 
     void Awake()
     {
@@ -56,6 +57,9 @@ public class PlayerManager : MonoBehaviour
 
         InputManager.instance.controls.PlayerControls.Jump.started += JumpButtonCallbackFunction;
         InputManager.instance.controls.PlayerControls.Jump.canceled += JumpButtonCallbackFunction;
+
+        InputManager.instance.controls.PlayerControls.ActionButton.started += ActionButtonCallbackFunction;
+        InputManager.instance.controls.PlayerControls.ActionButton.canceled += ActionButtonCallbackFunction;
     }
 
     void FixedUpdate() {
@@ -152,6 +156,11 @@ public class PlayerManager : MonoBehaviour
         return jumpButtonState;
     }
 
+    public bool actionButtonIsPressed()
+    {
+        return actionButtonState;
+    }
+
 // --------------------
 // Callback functions
 // --------------------
@@ -162,5 +171,10 @@ public class PlayerManager : MonoBehaviour
 
     private void JumpButtonCallbackFunction(InputAction.CallbackContext context) {
         jumpButtonState = context.ReadValueAsButton();
+    }
+
+    private void ActionButtonCallbackFunction(InputAction.CallbackContext context)
+    {
+        actionButtonState = context.ReadValueAsButton();
     }
 }

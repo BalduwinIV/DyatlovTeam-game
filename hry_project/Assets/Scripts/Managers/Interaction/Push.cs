@@ -15,17 +15,17 @@ public class PushObject : MonoBehaviour
     private bool canPush = false;
 
     void Start(){
-        objectToPush = GameObject.FindGameObjectsWithTag("ObjectToPush");
-        distance = Vektor3.Distance(this.transform.position, objectToPush.transform.position);
+        objectToPush = GameObject.FindGameObjectsWithTag("ObjectToPush")[0];
+        distance = Vector3.Distance(this.transform.position, objectToPush.transform.position);
         if (distance <= attachmentDistance) canPush = true;
     }
 
     void Update(){
-        if (canPush && Input.GetKeyDown(KeyCode.E)){
+        if (canPush && PlayerManager.instance.actionButtonIsPressed()){
             TogglePush();
         }
         if (isPushing){
-            float inputHorizontal = Input.GetAxis("Horizontal");
+            float inputHorizontal = PlayerManager.instance.getRawMovementInputX();
             float pushDirection = Mathf.Sign(inputHorizontal);
 
             if (isAttached){
@@ -52,9 +52,9 @@ public class PushObject : MonoBehaviour
         float objectWidth = objectToPush.GetComponent<Collider>().bounds.size.x;
 
         float offset = (playerWidth + objectWidth) / 2;
-        attachmentPoint = new Vector3(objectToPush.transform.position.x + offset * Mathf.Sign(transform.localScale.x), transform.position.y, transfrom.position.z);
+        attachmentPoint = new Vector3(objectToPush.transform.position.x + offset * Mathf.Sign(transform.localScale.x), transform.position.y, transform.position.z);
 
-        transrom.position = attachmentPoint;
+        transform.position = attachmentPoint;
         isAttached = true;
     }
 
