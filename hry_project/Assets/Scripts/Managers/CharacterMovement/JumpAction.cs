@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class JumpAction : MonoBehaviour
 {
-    [SerializeField] private float jumpForce;
+    [SerializeField] private float jumpForce = 8f;
     private bool jumped;
 
     void FixedUpdate()
