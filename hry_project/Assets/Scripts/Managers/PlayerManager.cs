@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.PlayerLoop;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -50,6 +51,11 @@ public class PlayerManager : MonoBehaviour
         {
             characterController.Move(movementVector * Time.fixedDeltaTime);
         }
+    }
+
+    public void changeMovementVectorYComponent(float value)
+    {
+        movementVector.y += value;
     }
 
 // ---------
