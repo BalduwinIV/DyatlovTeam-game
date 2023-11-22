@@ -11,15 +11,14 @@ public class Movement : MonoBehaviour
 
     // Local variables
     private float smoothT;
-    private bool previousMovementIsPositive;
-    private bool currentMovementIsPositive;
+    private bool movementIsPositive;
     private bool movementHasBeenLocked;
+    private bool triggerTurn;
 
     void Start()
     {
         smoothT = 0.0f;
-        previousMovementIsPositive = true;
-        currentMovementIsPositive = true;
+        movementIsPositive = true;
         movementHasBeenLocked = false;
     }
 
@@ -29,18 +28,30 @@ public class Movement : MonoBehaviour
     }
 
     void CheckTurn() {
-        if (PlayerManager.instance.getRawMovementInputX() > 0)
+        if ((movementIsPositive && PlayerManager.instance.getRawMovementInputX() < 0) ||
+            (!movementIsPositive && PlayerManager.instance.getRawMovementInputX() > 0))
         {
-            currentMovementIsPositive = true;
-        } else if (PlayerManager.instance.getRawMovementInputX() < 0) {
-            currentMovementIsPositive = false;
+            triggerTurn = !triggerTurn;
         }
-        if (currentMovementIsPositive != previousMovementIsPositive)
+
+        if (PlayerManager.instance.getCharacterController().isGrounded && 
+            !PlayerManager.instance.movementIsLocked() &&
+            triggerTurn)
         {
+            triggerTurn = false;
             PlayerManager.instance.setTurnTringger();
         }
-        previousMovementIsPositive = currentMovementIsPositive;
 
+        if (PlayerManager.instance.getRawMovementInputX() > 0)
+        {
+            movementIsPositive = true;
+        } 
+        else if (PlayerManager.instance.getRawMovementInputX() < 0) 
+        {
+            movementIsPositive = false;
+        }
+        
+        // Fix rotation
         if (!PlayerManager.instance.movementIsLocked() && movementHasBeenLocked) {
             if (transform.forward.x > 0) {
                 transform.rotation = Quaternion.LookRotation(new Vector3(1, 0, 0));
