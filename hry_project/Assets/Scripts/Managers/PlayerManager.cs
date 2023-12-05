@@ -34,6 +34,7 @@ public class PlayerManager : MonoBehaviour
     private Vector2 rawMovementInput;
     private bool jumpButtonState;
     private bool actionButtonState;
+    private bool isPushing;
 
     void Awake()
     {
@@ -119,6 +120,10 @@ public class PlayerManager : MonoBehaviour
         movementVector.z = value;
     }
 
+    public void setPushingState(bool state){
+        isPushing = state;
+    }
+
 // ---------
 // Getters
 // ---------
@@ -140,6 +145,11 @@ public class PlayerManager : MonoBehaviour
 
     public Vector3 getMovementVector() {
         return movementVector;
+    }
+
+    public float getMovementVectorXComponent()
+    {
+        return movementVector.x;
     }
 
     public Vector2 getRawMovementInput() 
@@ -165,6 +175,10 @@ public class PlayerManager : MonoBehaviour
     public bool actionButtonIsPressed()
     {
         return actionButtonState;
+    }
+
+    public bool getPushingState(){
+        return isPushing;
     }
 
 // --------------------
