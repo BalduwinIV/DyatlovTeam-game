@@ -3,13 +3,13 @@ using UnityEngine;
 
 public class Movement : MonoBehaviour
 {
-    // Parameters
+    // --- Parameters ---
     [SerializeField] private float movementSpeedMultiplier = 1.0f;
     [SerializeField] private float movementSpeedChangeMultiplier = 1.0f;
     [SerializeField] private float movementStopSpeedChangeMultiplier = 1.0f;
     [SerializeField] private AnimationCurve movementCurve;
 
-    // Local variables
+    // --- Local variables ---
     private float smoothT;
     private bool movementIsPositive;
     private bool movementHasBeenLocked;
@@ -39,7 +39,7 @@ public class Movement : MonoBehaviour
             triggerTurn)
         {
             triggerTurn = false;
-            PlayerManager.instance.setTurnTringger();
+            PlayerManager.instance.setTurnTrigger();
         }
 
         if (PlayerManager.instance.getRawMovementInputX() > 0)
