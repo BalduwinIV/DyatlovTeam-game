@@ -7,10 +7,13 @@ public class Movement : MonoBehaviour
     [SerializeField] private float movementSpeedMultiplier = 1.0f;
     [SerializeField] private float movementSpeedChangeMultiplier = 1.0f;
     [SerializeField] private float movementStopSpeedChangeMultiplier = 1.0f;
+    [SerializeField] private float speedReduction = 0.1f;
     [SerializeField] private AnimationCurve movementCurve;
+    
 
     // --- Local variables ---
     private float smoothT;
+    private float reduction;
     private bool movementIsPositive;
     private bool movementHasBeenLocked;
     private bool triggerTurn;
@@ -23,6 +26,12 @@ public class Movement : MonoBehaviour
     }
 
     void FixedUpdate() {
+        if (PlayerManager.instance.getPushingState()){
+            reduction = speedReduction;
+        }
+        else{
+            reduction = 1;
+        }
         UpdateMovementVector();
         CheckTurn();
     }
@@ -76,9 +85,9 @@ public class Movement : MonoBehaviour
             }
         }
         if (smoothT > 0) {
-            PlayerManager.instance.setMovementVectorXComponent(movementCurve.Evaluate(smoothT) * movementSpeedMultiplier);
+            PlayerManager.instance.setMovementVectorXComponent(movementCurve.Evaluate(smoothT) * movementSpeedMultiplier * reduction);
         } else {
-            PlayerManager.instance.setMovementVectorXComponent(-1 * movementCurve.Evaluate(-smoothT) * movementSpeedMultiplier);
+            PlayerManager.instance.setMovementVectorXComponent(-1 * movementCurve.Evaluate(-smoothT) * movementSpeedMultiplier * reduction);
         }
         PlayerManager.instance.setNormalizedMovementVectorX(Math.Abs(smoothT));
     }
