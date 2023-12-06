@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.PlayerLoop;
@@ -18,17 +19,28 @@ using UnityEngine.PlayerLoop;
 public class PlayerManager : MonoBehaviour
 {
     public static PlayerManager instance;
-    // Components
+    // --- Components ---
     private CharacterController characterController;
     private Animator animator;
 
-    // Animator hashes
+    // --- Animator hashes ---
+    // Defines x value of current movement input vector (floata <0,1>)
     private int normalizedMovementVectorXHash;
-    private int turnHash;
+    // Defines from what time (normalized) should climbing animation start. (float <0,1>)
+    private int climbOffsetHash; 
+    // Defines characters falling state. (bool <True;False>)
+    private int isFallingHash;
+    // Defines climbing speed increese while holding movement input. (float, defined by JumpAction.cs parameter)
+    private int climbingSpeedMultiplierHash;
 
     // Variables
     private Vector3 movementVector;
     private bool lockTransform;
+    private Vector3 climbPosition;
+    private float normalizedMovementVectorX;
+    private float climbOffset;
+    private bool isFalling;
+    private float climbingSpeedMultiplier;
 
     // Input variables
     private Vector2 rawMovementInput;
@@ -46,7 +58,9 @@ public class PlayerManager : MonoBehaviour
         animator = GetComponent<Animator>();
 
         normalizedMovementVectorXHash = Animator.StringToHash("normalizedMovementVectorX");
-        turnHash = Animator.StringToHash("turn");
+        climbOffsetHash = Animator.StringToHash("climbOffset");
+        isFallingHash = Animator.StringToHash("isFalling");
+        climbingSpeedMultiplierHash = Animator.StringToHash("climbingSpeedMultiplier");
         lockTransform = false;
     }
 
@@ -79,6 +93,7 @@ public class PlayerManager : MonoBehaviour
 // Setters
 // ---------
 
+// Animator
     public void lockMovement()
     {
         lockTransform = true;
@@ -91,14 +106,66 @@ public class PlayerManager : MonoBehaviour
 
     public void setNormalizedMovementVectorX(float value)
     {
+        normalizedMovementVectorX = value;
         animator.SetFloat(normalizedMovementVectorXHash, value);
+        animator.SetFloat(climbingSpeedMultiplierHash, Math.Max(climbingSpeedMultiplier + value, 1f));
     }
 
-    public void setTurnTringger()
+    public void setTurnTrigger()
     {
-        animator.SetTrigger(turnHash);
+        if (normalizedMovementVectorX > 0.3f)
+        {
+            animator.Play("RunningTurn");
+        }
+        else
+        {
+            animator.Play("WalkingTurn");
+        }
     }
 
+    public void setClimbTrigger()
+    {
+        lockMovement();
+        applyClimbPosition();
+        if (climbOffset < 0.6f)
+        {
+            animator.Play("Climbing", 0, climbOffset);
+        }
+        else
+        {
+            animator.Play("Climbing", 0, 0.6f);
+        }
+        Debug.Log("Playing climb animation with climbOffset=" + climbOffset);
+    }
+
+    public void setClimbOffset(float offset)
+    {
+        climbOffset = offset;
+        animator.SetFloat(climbOffsetHash, offset);
+    }
+
+    public void setClimbPosition(Vector3 position)
+    {
+        climbPosition = position;
+    }
+
+    public void applyClimbPosition()
+    {
+        transform.position = climbPosition;
+    }
+
+    public void setIsFalling(bool state)
+    {
+        isFalling = state;
+        animator.SetBool(isFallingHash, state);
+    }
+
+    public void setClimbingSpeedMultiplier(float value)
+    {
+        climbingSpeedMultiplier = value;
+    }
+
+// Player movement
     public void setMovementVector(float x, float y, float z) 
     {
         movementVector.Set(x, y, z);
@@ -165,6 +232,11 @@ public class PlayerManager : MonoBehaviour
     public bool actionButtonIsPressed()
     {
         return actionButtonState;
+    }
+
+    public bool getIsFalling()
+    {
+        return isFalling;
     }
 
 // --------------------
