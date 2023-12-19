@@ -7,6 +7,7 @@ public class Movement : MonoBehaviour
     [SerializeField] private float movementSpeedMultiplier = 1.0f;
     [SerializeField] private float movementSpeedChangeMultiplier = 1.0f;
     [SerializeField] private float movementStopSpeedChangeMultiplier = 1.0f;
+
     [SerializeField] private AnimationCurve movementCurve;
 
     // Local variables
@@ -23,6 +24,12 @@ public class Movement : MonoBehaviour
     }
 
     void FixedUpdate() {
+        if (PlayerManager.instance.getPushingState()){
+            reduction = PlayerManager.instance.getSpeedReduction();
+        }
+        else{
+            reduction = 1;
+        }
         UpdateMovementVector();
         CheckTurn();
     }

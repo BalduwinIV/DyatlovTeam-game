@@ -4,8 +4,10 @@ using UnityEngine;
 public class PushObject : MonoBehaviour
 {
     [SerializeField] private float pushForce = 1.0f;
-    [SerializeField] private float attachmentDistance = 1.5f;
+    [SerializeField] private float attachmentDistance = 2.1f;
     private float distance;
+    private float originalSpeed = 1;
+    private float speed = 1;
 
     private GameObject objectToPush;
     private Vector3 attachmentPoint;
@@ -14,26 +16,53 @@ public class PushObject : MonoBehaviour
     private bool isPushing = false;
     private bool canPush = false;
 
-    void Start(){
-        objectToPush = GameObject.FindGameObjectsWithTag("ObjectToPush")[0];
+    // void Start(){
+    //     FindeObject();
+    // }   
+
+    void FixedUpdate(){
+        FindeObject();
+        if (objectToPush == null) FindeObject();
         distance = Vector3.Distance(this.transform.position, objectToPush.transform.position);
-        if (distance <= attachmentDistance) canPush = true;
-    }
-
-    void Update(){
-        if (canPush && PlayerManager.instance.actionButtonIsPressed()){
-            TogglePush();
-        }
-        if (isPushing){
-            float inputHorizontal = PlayerManager.instance.getRawMovementInputX();
-            float pushDirection = Mathf.Sign(inputHorizontal);
-
+        if (distance <= attachmentDistance){
+            if (canPush && PlayerManager.instance.actionButtonIsPressed()){
+                TogglePush();
+            }
             if (isAttached){
-                float pushSpeed = pushForce * inputHorizontal;
-                objectToPush.transform.Translate(Vector3.right * pushSpeed * Time.deltaTime);
 
+                AttachToObject();
+                float inputHorizontal = PlayerManager.instance.getRawMovementInputX();
+                
+                if (isPushing){
+                    float pushSpeed = pushForce * inputHorizontal;
+                    objectToPush.transform.Translate(pushSpeed * Time.deltaTime * Vector3.right);
+                }
             }
         }
+        else{
+            isAttached = false;
+            isPushing = false;
+            PlayerManager.instance.setSpeedReduction(originalSpeed);
+            speed = originalSpeed;
+        }
+    }
+
+    public float GetSpeedReduction()
+    {
+        // Get the rigidbody of the object being pushed
+        Rigidbody objectRigidbody = objectToPush.GetComponent<Rigidbody>();
+        if (objectRigidbody != null)
+        {
+            if (isPushing){
+            // Adjust speed reduction based on the mass of the object
+                float newSpeed = originalSpeed / (objectRigidbody.mass * 5);
+                PlayerManager.instance.setSpeedReduction(newSpeed);
+                return newSpeed;
+            }
+        }
+
+        // Default speed reduction if no rigidbody is found
+        return originalSpeed;
     }
 
     void TogglePush(){
@@ -42,23 +71,53 @@ public class PushObject : MonoBehaviour
         if (isPushing){
             AttachToObject();
         }
-        else{
+        else {
             DetachFromObject();
         }
     }
 
     void AttachToObject(){
-        float playerWidth = GetComponent<Collider>().bounds.size.x;
-        float objectWidth = objectToPush.GetComponent<Collider>().bounds.size.x;
+        float attachmnetX = transform.position.x;
 
-        float offset = (playerWidth + objectWidth) / 2;
-        attachmentPoint = new Vector3(objectToPush.transform.position.x + offset * Mathf.Sign(transform.localScale.x), transform.position.y, transform.position.z);
-
+        attachmentPoint = new Vector3(attachmnetX, transform.position.y, transform.position.z);
         transform.position = attachmentPoint;
         isAttached = true;
     }
 
     void DetachFromObject(){
         isAttached = false;
+        isPushing = false;
+    }
+
+    GameObject FindNearestObjectWithTag(string tag){
+        GameObject[] objectsWithTag = GameObject.FindGameObjectsWithTag(tag);
+        if (objectsWithTag.Length == 0) return null;
+        GameObject nearestObject = null;
+        float nearestDistance = float.MaxValue;
+        foreach(GameObject obj in objectsWithTag){
+            if (obj != null) {
+                float newDistance = Vector3.Distance(transform.position, obj.transform.position);
+                if (newDistance < nearestDistance){
+                    nearestObject = obj;
+                    nearestDistance = newDistance;
+                }
+            }
+        }
+        return nearestObject;
+    }
+
+    void FindeObject(){
+        objectToPush = FindNearestObjectWithTag("ObjectToPush");
+        if (objectToPush != null){
+            distance = Vector3.Distance(this.transform.position, objectToPush.transform.position);
+            if (distance <= attachmentDistance){
+                    canPush = true;
+            }
+            else{
+                canPush = false;
+            }
+            speed = GetSpeedReduction();
+            Debug.Log("Speed: " + speed);
+        }
     }
 }

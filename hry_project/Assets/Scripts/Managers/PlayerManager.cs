@@ -29,6 +29,12 @@ public class PlayerManager : MonoBehaviour
     // Variables
     private Vector3 movementVector;
     private bool lockTransform;
+    private Vector3 climbPosition;
+    private float normalizedMovementVectorX;
+    private float climbOffset;
+    private bool isFalling;
+    private float climbingSpeedMultiplier;
+    private float speedReduction;
 
     // Input variables
     private Vector2 rawMovementInput;
@@ -119,6 +125,14 @@ public class PlayerManager : MonoBehaviour
         movementVector.z = value;
     }
 
+    public void setPushingState(bool state){
+        isPushing = state;
+    }
+
+    public void setSpeedReduction(float reduction){
+        speedReduction = reduction;
+    }
+
 // ---------
 // Getters
 // ---------
@@ -167,6 +181,18 @@ public class PlayerManager : MonoBehaviour
         return actionButtonState;
     }
 
+    public bool getPushingState(){
+        return isPushing;
+    }
+
+    public float getSpeedReduction(){
+        return speedReduction;
+    }
+
+    public bool getIsFalling()
+    {
+        return isFalling;
+    }
 // --------------------
 // Callback functions
 // --------------------
