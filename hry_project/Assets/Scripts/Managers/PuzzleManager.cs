@@ -38,7 +38,7 @@ public class PuzzleManager : MonoBehaviour
         {
             stones[stoneNumber].GetComponent<Animator>().SetFloat("Speed", speedStoneAnimation);
             stones[stoneNumber++].GetComponent<Animator>().SetTrigger("Fall");
-            speedStoneAnimation-=0.2f;
+            speedStoneAnimation-=0.3f;
         }
 
     }
