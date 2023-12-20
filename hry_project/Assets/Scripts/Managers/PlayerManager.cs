@@ -32,6 +32,8 @@ public class PlayerManager : MonoBehaviour
     private int isFallingHash;
     // Defines climbing speed increese while holding movement input. (float, defined by JumpAction.cs parameter)
     private int climbingSpeedMultiplierHash;
+    private int pushingHash;
+    private int stopPushingHash;
 
     // Variables
     private Vector3 movementVector;
@@ -63,6 +65,8 @@ public class PlayerManager : MonoBehaviour
         isFallingHash = Animator.StringToHash("isFalling");
         climbingSpeedMultiplierHash = Animator.StringToHash("climbingSpeedMultiplier");
         lockTransform = false;
+        pushingHash = Animator.StringToHash("Pushing");
+        stopPushingHash = Animator.StringToHash("StopPushing");
     }
 
     void Start()
@@ -165,6 +169,18 @@ public class PlayerManager : MonoBehaviour
     {
         climbingSpeedMultiplier = value;
     }
+
+    public void setPushingTrigger()
+    {
+        animator.SetTrigger(pushingHash);
+    }
+
+    public void setStopPushingTrigger()
+    {
+        animator.SetTrigger(stopPushingHash);
+    }
+
+    
 
 // Player movement
     public void setMovementVector(float x, float y, float z) 
