@@ -6,8 +6,9 @@ public class PuzzleManager : MonoBehaviour
 {
     public static PuzzleManager instance;
     // -- Objects --
-    [SerializeField] private GameObject wallExample;
-    [SerializeField] private bool showWallExample;
+    [SerializeField] private GameObject[] stones;
+    private int stoneNumber;
+    private float speedStoneAnimation;
 
     void Awake()
     {
@@ -15,6 +16,8 @@ public class PuzzleManager : MonoBehaviour
         {
             instance = this;
         }
+        stoneNumber = 0;
+        speedStoneAnimation = 1;
     }
 
     void Start()
@@ -28,13 +31,15 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
-    void Update() 
+    
+    public void startStoneAnimation()
     {
-        setWallExampleActiveState(showWallExample);
-    }
+        if(stoneNumber < stones.Length)
+        {
+            stones[stoneNumber].GetComponent<Animator>().SetFloat("Speed", speedStoneAnimation);
+            stones[stoneNumber++].GetComponent<Animator>().SetTrigger("Fall");
+            speedStoneAnimation-=0.2f;
+        }
 
-    void setWallExampleActiveState(bool state) 
-    {
-        wallExample.SetActive(state);
     }
 }
