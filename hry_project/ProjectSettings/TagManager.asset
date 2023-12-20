@@ -6,6 +6,9 @@ TagManager:
   tags:
   - WorldObject
   - Wall
+  - ObjectToPush
+  - InvisibleWall
+  - StoneToPush
   layers:
   - Default
   - TransparentFX
