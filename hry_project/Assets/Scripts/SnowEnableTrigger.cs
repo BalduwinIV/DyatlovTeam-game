@@ -14,6 +14,7 @@ public class SnowEnableRtigger : MonoBehaviour
             {
                 snowParticleSystem.gameObject.SetActive(true);
             }
+            PlayerManager.instance.setCharacterIsOnSnow(true);
         }
     }
 }
