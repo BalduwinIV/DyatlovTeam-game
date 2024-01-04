@@ -9,6 +9,8 @@ TagManager:
   - ObjectToPush
   - InvisibleWall
   - StoneToPush
+  - FallingStone
+  - Bigfoot
   layers:
   - Default
   - TransparentFX

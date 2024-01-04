@@ -7,6 +7,7 @@ public class PuzzleManager : MonoBehaviour
     public static PuzzleManager instance;
     // -- Objects --
     [SerializeField] private GameObject[] stones;
+    [SerializeField] private GameObject bigfoot;
     private int stoneNumber;
     private float speedStoneAnimation;
 
@@ -41,5 +42,13 @@ public class PuzzleManager : MonoBehaviour
             speedStoneAnimation-=0.3f;
         }
 
+    }
+
+    public void startBigfootAttackAnimation()
+    {
+        if(bigfoot != null)
+        {
+            bigfoot.GetComponent<Animator>().SetTrigger("Attack");
+        }
     }
 }

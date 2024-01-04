@@ -31,6 +31,10 @@ public class PushStone : MonoBehaviour
             if (distance <= attachmentDistance){
                     canPush = true;
             }
+            else 
+            {
+                canPush = false;
+            }
         }
         if (canPush && PlayerManager.instance.actionButtonIsPressed() && !isPushed && !isPushing)
         {

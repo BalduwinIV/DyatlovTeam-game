@@ -44,5 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 356e80ad4fee71f3daeffd829df02cb1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  wallExample: {fileID: 0}
-  showWallExample: 1
+  stones:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}

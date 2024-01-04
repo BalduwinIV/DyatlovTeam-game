@@ -34,6 +34,7 @@ public class PlayerManager : MonoBehaviour
     private int climbingSpeedMultiplierHash;
     private int pushingHash;
     private int stopPushingHash;
+    private int touchingHash;
 
     // Variables
     private Vector3 movementVector;
@@ -67,6 +68,7 @@ public class PlayerManager : MonoBehaviour
         lockTransform = false;
         pushingHash = Animator.StringToHash("Pushing");
         stopPushingHash = Animator.StringToHash("StopPushing");
+        touchingHash = Animator.StringToHash("Touching");
     }
 
     void Start()
@@ -178,6 +180,11 @@ public class PlayerManager : MonoBehaviour
     public void setStopPushingTrigger()
     {
         animator.SetTrigger(stopPushingHash);
+    }
+
+    public void setTouchingTrigger()
+    {
+        animator.SetTrigger(touchingHash);
     }
 
     
