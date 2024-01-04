@@ -44,6 +44,7 @@ public class PlayerManager : MonoBehaviour
     private float climbOffset;
     private bool isFalling;
     private float climbingSpeedMultiplier;
+    private bool characterIsOnSnow;
 
     // Input variables
     private Vector2 rawMovementInput;
@@ -82,6 +83,8 @@ public class PlayerManager : MonoBehaviour
 
         InputManager.instance.controls.PlayerControls.ActionButton.started += ActionButtonCallbackFunction;
         InputManager.instance.controls.PlayerControls.ActionButton.canceled += ActionButtonCallbackFunction;
+
+        characterIsOnSnow = true;
     }
 
     void FixedUpdate() {
@@ -214,6 +217,12 @@ public class PlayerManager : MonoBehaviour
         isPushing = state;
     }
 
+// Condition variables
+    public void setCharacterIsOnSnow(bool state)
+    {
+        characterIsOnSnow = state;
+    }
+
 // ---------
 // Getters
 // ---------
@@ -275,6 +284,13 @@ public class PlayerManager : MonoBehaviour
     {
         return isFalling;
     }
+
+// Condition variables
+    public bool getCharacterIsOnSnow()
+    {
+        return characterIsOnSnow;
+    }
+
 // --------------------
 // Callback functions
 // --------------------
