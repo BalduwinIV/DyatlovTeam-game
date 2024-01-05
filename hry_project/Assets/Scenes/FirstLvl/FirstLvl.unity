@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 10877.271, g: 8750.22, b: 5902.4595, a: 1}
+  m_IndirectSpecularColor: {r: 11904.339, g: 10371.009, b: 8435.993, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1782,17 +1782,17 @@ PrefabInstance:
     - target: {fileID: 8839742768315589328, guid: a24d62d0706016b40a4acda3d1716c5f,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -167.48071
+      value: -167.4627
       objectReference: {fileID: 0}
     - target: {fileID: 8839742768315589328, guid: a24d62d0706016b40a4acda3d1716c5f,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.374903
+      value: 3.3789032
       objectReference: {fileID: 0}
     - target: {fileID: 8839742768315589328, guid: a24d62d0706016b40a4acda3d1716c5f,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.7580514
+      value: 2.7580528
       objectReference: {fileID: 0}
     - target: {fileID: 8839742768315589328, guid: a24d62d0706016b40a4acda3d1716c5f,
         type: 3}
@@ -5659,17 +5659,17 @@ PrefabInstance:
     - target: {fileID: 5661688417455742678, guid: 29f1b67201acb9d04a0bb4c112e5c38d,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -167.48071
+      value: -167.4627
       objectReference: {fileID: 0}
     - target: {fileID: 5661688417455742678, guid: 29f1b67201acb9d04a0bb4c112e5c38d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.374903
+      value: 3.3789032
       objectReference: {fileID: 0}
     - target: {fileID: 5661688417455742678, guid: 29f1b67201acb9d04a0bb4c112e5c38d,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.7580514
+      value: 2.7580528
       objectReference: {fileID: 0}
     - target: {fileID: 5661688417455742678, guid: 29f1b67201acb9d04a0bb4c112e5c38d,
         type: 3}
@@ -5744,6 +5744,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e497ac0246124b4182093e4d3983c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  suspenseClip: {fileID: 8300000, guid: a4adf49240819bba0b4d55b603c54b2d, type: 3}
+  suspenseVolume: 0.207
+  hitSoundClip: {fileID: 8300000, guid: e14dc488ecb735d9785de2b0d7d9b81a, type: 3}
+  hitSoundVolume: 0.538
   sceneName: SecondLvl
 --- !u!1 &1228095067
 GameObject:
@@ -18554,6 +18558,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e497ac0246124b4182093e4d3983c7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  suspenseClip: {fileID: 0}
+  suspenseVolume: 0
+  hitSoundClip: {fileID: 0}
+  hitSoundVolume: 0
   sceneName: SecondLvl
 --- !u!65 &1748573022
 BoxCollider:
@@ -25783,12 +25791,12 @@ PrefabInstance:
     - target: {fileID: 3115958320984514793, guid: 2de92592986e11247bb6c4373f866e53,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -168.313
+      value: -168.295
       objectReference: {fileID: 0}
     - target: {fileID: 3115958320984514793, guid: 2de92592986e11247bb6c4373f866e53,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.379
+      value: 2.383
       objectReference: {fileID: 0}
     - target: {fileID: 3115958320984514793, guid: 2de92592986e11247bb6c4373f866e53,
         type: 3}
