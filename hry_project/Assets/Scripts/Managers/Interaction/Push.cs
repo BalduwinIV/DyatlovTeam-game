@@ -30,11 +30,11 @@ public class PushObject : MonoBehaviour
 
         if (canPush && PlayerManager.instance.actionButtonIsPressed() && !isPushing){
             isPushing = true;
-            PlayerManager.instance.setPushingTrigger();
+            PlayerManager.instance.setIsPushing(true);
         }
         if ((!canPush || !PlayerManager.instance.actionButtonIsPressed()) && isPushing) {
             isPushing = false;
-            PlayerManager.instance.setStopPushingTrigger();
+            PlayerManager.instance.setIsPushing(false);
         }
         if (isPushing){
             float inputHorizontal = PlayerManager.instance.getRawMovementInputX();
