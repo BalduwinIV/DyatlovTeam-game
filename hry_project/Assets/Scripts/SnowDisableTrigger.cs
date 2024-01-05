@@ -14,6 +14,7 @@ public class SnowDisableTrigger : MonoBehaviour
             {
                 snowParticleSystem.gameObject.SetActive(false);
             }
+            PlayerManager.instance.setCharacterIsOnSnow(false);
         }
     }
 }

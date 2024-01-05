@@ -48,3 +48,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  stoneHitSound: {fileID: 8300000, guid: 00b1e5bb2fc7cb67e812b48547233425, type: 3}
+  stoneHitVolume: 0.5
+  bigfoot: {fileID: 0}

@@ -38,12 +38,12 @@ public class PushStone : MonoBehaviour
         }
         if (canPush && PlayerManager.instance.actionButtonIsPressed() && !isPushed && !isPushing)
         {
-            PlayerManager.instance.setPushingTrigger();
+            PlayerManager.instance.setIsPushing(true);
             isPushing = true;
         }
         if(canPush && !PlayerManager.instance.actionButtonIsPressed() && !isPushed && isPushing)
         {
-            PlayerManager.instance.setStopPushingTrigger();
+            PlayerManager.instance.setIsPushing(false);
             isPushing = false;
         }
     }
