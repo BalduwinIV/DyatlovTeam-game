@@ -32,6 +32,9 @@ public class PlayerManager : MonoBehaviour
     private int isFallingHash;
     // Defines climbing speed increese while holding movement input. (float, defined by JumpAction.cs parameter)
     private int climbingSpeedMultiplierHash;
+    private int touchingHash;
+    private int isPushingHash;
+    private int finalDeathHash;
 
     // Variables
     private Vector3 movementVector;
@@ -41,12 +44,16 @@ public class PlayerManager : MonoBehaviour
     private float climbOffset;
     private bool isFalling;
     private float climbingSpeedMultiplier;
+    private bool characterIsOnSnow;
 
     // Input variables
     private Vector2 rawMovementInput;
     private bool jumpButtonState;
     private bool actionButtonState;
     private bool isPushing;
+
+    // Tmp
+    private float startZPosition;
 
     void Awake()
     {
@@ -63,10 +70,15 @@ public class PlayerManager : MonoBehaviour
         isFallingHash = Animator.StringToHash("isFalling");
         climbingSpeedMultiplierHash = Animator.StringToHash("climbingSpeedMultiplier");
         lockTransform = false;
+        touchingHash = Animator.StringToHash("Touching");
+        isPushingHash = Animator.StringToHash("IsPushing");
+        finalDeathHash = Animator.StringToHash("FinalDeath");
     }
 
     void Start()
     {
+        startZPosition = transform.position.z;
+
         InputManager.instance.controls.PlayerControls.Movement.started += MovementCallbackFunction;
         InputManager.instance.controls.PlayerControls.Movement.performed += MovementCallbackFunction;
         InputManager.instance.controls.PlayerControls.Movement.canceled += MovementCallbackFunction;
@@ -76,12 +88,32 @@ public class PlayerManager : MonoBehaviour
 
         InputManager.instance.controls.PlayerControls.ActionButton.started += ActionButtonCallbackFunction;
         InputManager.instance.controls.PlayerControls.ActionButton.canceled += ActionButtonCallbackFunction;
+
+        characterIsOnSnow = true;
     }
 
-    void FixedUpdate() {
+    // void Update()
+    // {
+    //     if(transform.position.z != startZPosition)
+    //     {
+    //         Debug.Log("Correcting Z position!");
+    //         Vector3 currentPosition = transform.position;
+    //         currentPosition.z = startZPosition;
+    //         transform.SetPositionAndRotation(currentPosition, transform.rotation);
+    //     }
+    // }
+    void FixedUpdate() 
+    {
         if (!lockTransform)
         {
             characterController.Move(movementVector * Time.fixedDeltaTime);
+        }
+        if(transform.position.z != startZPosition)
+        {
+            Debug.Log("Correcting Z position!");
+            Vector3 currentPosition = transform.position;
+            currentPosition.z = startZPosition;
+            transform.SetPositionAndRotation(currentPosition, transform.rotation);
         }
     }
 
@@ -165,6 +197,28 @@ public class PlayerManager : MonoBehaviour
     {
         climbingSpeedMultiplier = value;
     }
+    
+    public void setIsPushing(bool state)
+    {
+        animator.SetBool(isPushingHash, state);
+    }
+
+    public void setStopPushing()
+    {
+        animator.SetBool(isPushingHash, false);
+    }
+
+    public void setTouchingTrigger()
+    {
+        animator.SetTrigger(touchingHash);
+    }
+
+    public void setFinalDeathTrigger()
+    {
+        animator.SetTrigger(finalDeathHash);
+    }
+
+    
 
 // Player movement
     public void setMovementVector(float x, float y, float z) 
@@ -189,6 +243,12 @@ public class PlayerManager : MonoBehaviour
 
     public void setPushingState(bool state){
         isPushing = state;
+    }
+
+// Condition variables
+    public void setCharacterIsOnSnow(bool state)
+    {
+        characterIsOnSnow = state;
     }
 
 // ---------
@@ -252,6 +312,13 @@ public class PlayerManager : MonoBehaviour
     {
         return isFalling;
     }
+
+// Condition variables
+    public bool getCharacterIsOnSnow()
+    {
+        return characterIsOnSnow;
+    }
+
 // --------------------
 // Callback functions
 // --------------------

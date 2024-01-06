@@ -6,6 +6,11 @@ TagManager:
   tags:
   - WorldObject
   - Wall
+  - ObjectToPush
+  - InvisibleWall
+  - StoneToPush
+  - FallingStone
+  - Bigfoot
   layers:
   - Default
   - TransparentFX
