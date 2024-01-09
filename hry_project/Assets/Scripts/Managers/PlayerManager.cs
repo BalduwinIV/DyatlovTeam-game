@@ -34,6 +34,7 @@ public class PlayerManager : MonoBehaviour
     private int climbingSpeedMultiplierHash;
     private int touchingHash;
     private int isPushingHash;
+    private int finalDeathHash;
 
     // Variables
     private Vector3 movementVector;
@@ -50,6 +51,9 @@ public class PlayerManager : MonoBehaviour
     private bool jumpButtonState;
     private bool actionButtonState;
     private bool isPushing;
+
+    // Tmp
+    private float startZPosition;
 
     void Awake()
     {
@@ -68,10 +72,13 @@ public class PlayerManager : MonoBehaviour
         lockTransform = false;
         touchingHash = Animator.StringToHash("Touching");
         isPushingHash = Animator.StringToHash("IsPushing");
+        finalDeathHash = Animator.StringToHash("FinalDeath");
     }
 
     void Start()
     {
+        startZPosition = transform.position.z;
+
         InputManager.instance.controls.PlayerControls.Movement.started += MovementCallbackFunction;
         InputManager.instance.controls.PlayerControls.Movement.performed += MovementCallbackFunction;
         InputManager.instance.controls.PlayerControls.Movement.canceled += MovementCallbackFunction;
@@ -85,10 +92,28 @@ public class PlayerManager : MonoBehaviour
         characterIsOnSnow = true;
     }
 
-    void FixedUpdate() {
+    // void Update()
+    // {
+    //     if(transform.position.z != startZPosition)
+    //     {
+    //         Debug.Log("Correcting Z position!");
+    //         Vector3 currentPosition = transform.position;
+    //         currentPosition.z = startZPosition;
+    //         transform.SetPositionAndRotation(currentPosition, transform.rotation);
+    //     }
+    // }
+    void FixedUpdate() 
+    {
         if (!lockTransform)
         {
             characterController.Move(movementVector * Time.fixedDeltaTime);
+        }
+        if(transform.position.z != startZPosition)
+        {
+            Debug.Log("Correcting Z position!");
+            Vector3 currentPosition = transform.position;
+            currentPosition.z = startZPosition;
+            transform.SetPositionAndRotation(currentPosition, transform.rotation);
         }
     }
 
@@ -186,6 +211,11 @@ public class PlayerManager : MonoBehaviour
     public void setTouchingTrigger()
     {
         animator.SetTrigger(touchingHash);
+    }
+
+    public void setFinalDeathTrigger()
+    {
+        animator.SetTrigger(finalDeathHash);
     }
 
     

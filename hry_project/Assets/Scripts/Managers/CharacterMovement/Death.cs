@@ -19,16 +19,13 @@ public class Death : MonoBehaviour
         {
             if(this.transform.position.x > -60f && this.transform.position.x < -20f)
             {
-                this.transform.position = new Vector3(-60f, 5f, 12.59f);
+                this.transform.position = new Vector3(-60f, 5f, this.transform.position.z);
             }
             else if(this.transform.position.x >= -20f && this.transform.position.x < 40f)
             {
-                this.transform.position = new Vector3(-15f, 5.5f, 12.59f);
+                this.transform.position = new Vector3(-15f, 5.5f, this.transform.position.z);
                 ResetCollumnPuzzle();
             }
-
-            
-            
         }
     }
 
