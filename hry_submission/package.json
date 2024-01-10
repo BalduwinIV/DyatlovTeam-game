@@ -1,13 +1,14 @@
 {
-  "title": "Pacman",
-  "team": 3,
+  "title": "Dyatlov",
+  "team": 7,
   "source": "hry_project",
   "authors": [
-    {"fullname": "Jan Example", "email": "exampjan@fel.cvut.cz"},
-    {"fullname": "Aleš Vopršálek", "email": "voprsale@fit.cvut.cz"}
+    {"fullname": "Matvei Korikov", "email": "korikmat@fel.cvut.cz"},
+    {"fullname": "Nadzeya Shchahlova", "email": "shchanad@fel.cvut.cz"},
+    {"fullname": "Nikita Sazanov", "email": "sazannik@fel.cvut.cz"},
+    {"fullname": "Gleb Prachanov", "email": "prachgle@fel.cvut.cz"}
   ],
-  "term": 211,
-  "summary": "An amazing arcade game, where you navigate your character through a maze, eating pac-dots and hiding from evil ghosts.",
-  "opensource": true,
-  "url": "http://pacman.com"
+  "term": 231,
+  "summary": "Dyatlov - is a real-life based puzzle-platformer, side-scroller, adventure game.",
+  "opensource": false
 }
