@@ -1,4 +1,3 @@
-using System.Security;
 using UnityEngine;
 
 public class GravityController : MonoBehaviour
@@ -27,6 +26,7 @@ public class GravityController : MonoBehaviour
             PlayerManager.instance.setMovementVectorYComponent(-maxDownSpeed);
         }
 
+        // Update falling state.
         rayStart = transform.position;
         rayStart.y += 0.5f;
         if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hitInfo, 50f)) {

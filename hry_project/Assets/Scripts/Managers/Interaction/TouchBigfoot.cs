@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class TouchBigfoot : MonoBehaviour
@@ -10,8 +8,6 @@ public class TouchBigfoot : MonoBehaviour
     private bool canTouch = false;
     private bool isTouched = false;
 
-
-    // Update is called once per frame
     void FixedUpdate()
     {
         objectToTouch = FindNearestObjectWithTag("Bigfoot");

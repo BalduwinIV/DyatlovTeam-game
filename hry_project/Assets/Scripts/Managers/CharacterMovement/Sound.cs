@@ -1,8 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/* Controls the sound effects that play on the character. */
 public class Sound : MonoBehaviour
 {
     [SerializeField] private AudioClip snowStep1;

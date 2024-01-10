@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Input manager singleton.
 public class InputManager : MonoBehaviour
 {
     public static InputManager instance;

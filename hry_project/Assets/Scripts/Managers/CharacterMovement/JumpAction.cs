@@ -1,4 +1,3 @@
-using UnityEditor;
 using UnityEngine;
 
 public class JumpAction : MonoBehaviour
@@ -29,6 +28,7 @@ public class JumpAction : MonoBehaviour
         float climbOffset = 0f;
         Vector3 climbingPosition = transform.position;
 
+        // Check if there is an obstacle in front of the character.
         Vector3 obstacleRayStart = transform.position;
         obstacleRayStart.y += obstacleRayGroundPadding;
         Ray obstacleRay = new Ray(obstacleRayStart, transform.forward);
@@ -47,6 +47,7 @@ public class JumpAction : MonoBehaviour
                 Debug.DrawRay(obstacleRayStart, transform.forward * obstacleRayDistance, Color.blue);
             }
 
+            // Get precise info about the collision.
             for (float groundPaddingI = rayGroundPadding + rayRange; groundPaddingI >= rayGroundPadding; groundPaddingI -= rayStep)
             {
                 Vector3 rayStart = transform.position;
