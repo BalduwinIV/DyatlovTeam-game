@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// Changes crystal rotation angle.
 public class CrystalPuzzle1 : MonoBehaviour
 {
     private Animator animator;

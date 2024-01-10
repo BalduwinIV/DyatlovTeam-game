@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+// Audio manager singleton.
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager instance;
@@ -15,6 +14,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
+    // Plays <audioClip> at <spawnTransform> position with <volume> volume.
     public void PlayAudioClip(AudioClip audioClip, Transform spawnTransform, float volume)
     {
         AudioSource audioSource = Instantiate(audioSourceObject, spawnTransform.position, Quaternion.identity);

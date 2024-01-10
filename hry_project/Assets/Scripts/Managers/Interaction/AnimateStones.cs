@@ -1,7 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
+/* Used in animation. */
 public class AnimateStones : MonoBehaviour
 {
     void activateStoneAnimation()

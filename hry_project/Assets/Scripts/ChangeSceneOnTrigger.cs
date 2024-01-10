@@ -1,8 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// Changes first level to the second.
 public class ChangeSceneOnTrigger : MonoBehaviour
 {
     [SerializeField] private AudioClip suspenseClip;

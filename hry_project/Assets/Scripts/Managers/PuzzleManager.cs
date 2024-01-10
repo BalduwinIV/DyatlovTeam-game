@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PuzzleManager : MonoBehaviour
@@ -35,7 +33,7 @@ public class PuzzleManager : MonoBehaviour
         }
     }
 
-    
+    // Plays stones animations: first call - first stone, second call - second stone, third call - third call.
     public void startStoneAnimation()
     {
         if(stoneNumber < stones.Length)
@@ -55,6 +53,7 @@ public class PuzzleManager : MonoBehaviour
 
     }
 
+    // Plays bigfoot connected animation.
     public void startBigfootAttackAnimation()
     {
         if(bigfoot != null)

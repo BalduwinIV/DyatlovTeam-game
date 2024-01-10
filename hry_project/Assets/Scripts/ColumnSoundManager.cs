@@ -8,6 +8,7 @@ public class ColumnSoundManager : MonoBehaviour
     [Range (0f, 1f)]
     public float volume;
 
+    // Plays column falling sound.
     public void PlayClip()
     {
         AudioManager.instance.PlayAudioClip(clip, transform, volume);
